@@ -2,23 +2,48 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useState } from "react";
 
 export default function Hero() {
+  const [videoReady, setVideoReady] = useState(false);
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Fallback image shown until video is ready */}
       <Image
         src="/images/interior-sunset.png"
         alt="Millennium Place — Interior mit Rheinblick bei Sonnenuntergang"
         fill
         priority
-        className="object-cover"
+        className={`object-cover transition-opacity duration-1000 ${videoReady ? "opacity-0" : "opacity-100"}`}
         sizes="100vw"
         quality={85}
       />
 
-      <div className="absolute inset-0 bg-gradient-to-b from-midnight-950/70 via-midnight-950/40 to-midnight-950" />
+      {/* YouTube background video — autoplay, muted, looping, no controls */}
+      <div className="absolute inset-0 overflow-hidden">
+        <iframe
+          src="https://www.youtube.com/embed/YKa5tnA8G88?autoplay=1&mute=1&loop=1&playlist=YKa5tnA8G88&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1&enablejsapi=0&disablekb=1"
+          allow="autoplay; encrypted-media"
+          onLoad={() => setVideoReady(true)}
+          className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-opacity duration-1000 ${videoReady ? "opacity-100" : "opacity-0"}`}
+          style={{
+            border: "none",
+            pointerEvents: "none",
+            width: "max(100vw, calc(100vh * 16 / 9))",
+            height: "max(100vh, calc(100vw * 9 / 16))",
+            minWidth: "100%",
+            minHeight: "100%",
+          }}
+          title="Millennium Place Hero Video"
+        />
+      </div>
 
-      <div className="relative z-10 mx-auto max-w-5xl px-6 text-center">
+      {/* Dark overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-midnight-950/65 via-midnight-950/40 to-midnight-950 z-10" />
+
+      {/* Content */}
+      <div className="relative z-20 mx-auto max-w-5xl px-6 text-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -57,10 +82,10 @@ export default function Hero() {
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <a
-            href="#kontakt"
+            href="#termin"
             className="group px-8 py-4 bg-gold-500 hover:bg-gold-400 text-midnight-950 font-semibold rounded-full transition-all duration-300 hover:shadow-xl hover:shadow-gold-500/30 text-base"
           >
-            Event anfragen
+            Termin buchen
             <span className="inline-block ml-2 transition-transform group-hover:translate-x-1">
               &rarr;
             </span>
@@ -74,11 +99,12 @@ export default function Hero() {
         </motion.div>
       </div>
 
+      {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5, duration: 1 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20"
       >
         <motion.div
           animate={{ y: [0, 8, 0] }}
