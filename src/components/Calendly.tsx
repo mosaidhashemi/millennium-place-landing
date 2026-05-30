@@ -7,7 +7,7 @@ import ScrollReveal from "./ScrollReveal";
 // Replace this URL with your own Calendly link once your account is set up:
 // e.g. https://calendly.com/millennium-place/besichtigung
 const CALENDLY_URL =
-  "https://calendly.com/millennium-place/besichtigung?hide_landing_page_details=1&hide_gdpr_banner=1&background_color=0d1114&text_color=f4f6f7&primary_color=c9a84c";
+  "https://calendly.com/mosaidhashemi/vorort-termin?hide_landing_page_details=1&hide_gdpr_banner=1&background_color=0d1114&text_color=f4f6f7&primary_color=c9a84c";
 
 export default function CalendlySection() {
   const widgetRef = useRef<HTMLDivElement>(null);
