@@ -11,6 +11,7 @@
   "dependencies": {
     "framer-motion": "^12.40.0",
     "next": "14.2.35",
+    "next-cloudinary": "^6.17.5",
     "react": "^18",
     "react-dom": "^18"
   },

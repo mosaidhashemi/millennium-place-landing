@@ -4,11 +4,13 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
-  { label: "Erlebnis", href: "#erlebnis" },
-  { label: "Räume", href: "#raeume" },
-  { label: "Preise", href: "#preise" },
-  { label: "Termin", href: "#termin" },
-  { label: "Kontakt", href: "#kontakt" },
+  { label: "Erlebnis", href: "/#erlebnis" },
+  { label: "Hochzeiten", href: "/events/hochzeiten" },
+  { label: "Firmenevents", href: "/events/firmenveranstaltungen" },
+  { label: "Räume", href: "/#raeume" },
+  { label: "Galerie", href: "/#galerie" },
+  { label: "Anfahrt", href: "/#anfahrt" },
+  { label: "Kontakt", href: "/#kontakt" },
 ];
 
 export default function Navbar() {
@@ -45,7 +47,7 @@ export default function Navbar() {
     >
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="flex h-20 items-center justify-between">
-          <a href="#" className="flex items-center gap-3 group">
+          <a href="/" className="flex items-center gap-3 group">
             <div className="h-10 w-10 rounded-full border border-gold-400/50 flex items-center justify-center group-hover:border-gold-300 transition-colors">
               <span className="font-heading text-gold-400 text-xl">M</span>
             </div>
@@ -65,7 +67,7 @@ export default function Navbar() {
               </a>
             ))}
             <a
-              href="#kontakt"
+              href="/#kontakt"
               className="ml-4 px-6 py-2.5 bg-gold-500 hover:bg-gold-400 text-midnight-950 text-sm font-semibold rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-gold-500/25"
             >
               Anfrage senden
@@ -121,7 +123,7 @@ export default function Navbar() {
               </motion.a>
             ))}
             <motion.a
-              href="#kontakt"
+              href="/#kontakt"
               onClick={() => setMobileOpen(false)}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}

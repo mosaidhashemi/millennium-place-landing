@@ -1,4 +1,5 @@
 import ScrollReveal from "./ScrollReveal";
+import CookieSettingsLink from "./consent/CookieSettingsLink";
 
 const footerLinks = {
   "Millennium Place": [
@@ -7,17 +8,17 @@ const footerLinks = {
     { label: "Presse", href: "#" },
     { label: "Partner werden", href: "#" },
   ],
-  Erlebnis: [
-    { label: "Eventlocation", href: "#erlebnis" },
-    { label: "Steakhouse", href: "#erlebnis" },
-    { label: "Entertainment", href: "#erlebnis" },
-    { label: "Räume", href: "#raeume" },
+  Events: [
+    { label: "Hochzeiten", href: "/events/hochzeiten" },
+    { label: "Firmenveranstaltungen", href: "/events/firmenveranstaltungen" },
+    { label: "Steakhouse", href: "/#restaurant" },
+    { label: "Räume", href: "/#raeume" },
   ],
   Service: [
-    { label: "Event anfragen", href: "#kontakt" },
-    { label: "Pakete & Preise", href: "#preise" },
-    { label: "FAQ", href: "#faq" },
-    { label: "Newsletter", href: "#" },
+    { label: "Event anfragen", href: "/#kontakt" },
+    { label: "Pakete & Preise", href: "/#preise" },
+    { label: "FAQ", href: "/#faq" },
+    { label: "Galerie", href: "/#galerie" },
   ],
 };
 
@@ -87,25 +88,32 @@ export default function Footer() {
           <p className="text-midnight-600 text-xs">
             &copy; 2026 Millennium Place. Alle Rechte vorbehalten.
           </p>
-          <div className="flex gap-6">
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
             <a
-              href="#"
-              className="text-midnight-600 hover:text-midnight-400 text-xs transition-colors"
-            >
-              Datenschutz
-            </a>
-            <a
-              href="#"
-              className="text-midnight-600 hover:text-midnight-400 text-xs transition-colors"
+              href="/impressum"
+              className="text-midnight-500 hover:text-gold-300 text-xs transition-colors"
             >
               Impressum
             </a>
             <a
-              href="#"
-              className="text-midnight-600 hover:text-midnight-400 text-xs transition-colors"
+              href="/datenschutz"
+              className="text-midnight-500 hover:text-gold-300 text-xs transition-colors"
+            >
+              Datenschutz
+            </a>
+            <a
+              href="/agb"
+              className="text-midnight-500 hover:text-gold-300 text-xs transition-colors"
             >
               AGB
             </a>
+            <a
+              href="/verbraucherinformationen"
+              className="text-midnight-500 hover:text-gold-300 text-xs transition-colors"
+            >
+              Verbraucherinformationen
+            </a>
+            <CookieSettingsLink className="text-midnight-500 hover:text-gold-300 text-xs transition-colors" />
           </div>
         </div>
       </div>

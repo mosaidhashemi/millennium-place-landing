@@ -3,41 +3,9 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ScrollReveal from "./ScrollReveal";
+import { faqs } from "@/lib/business";
 
-const faqs = [
-  {
-    question: "Wann eröffnet Millennium Place?",
-    answer:
-      "Die offizielle Eröffnung ist für 2026 geplant. Sie können bereits jetzt Ihr Event vormerken lassen und von exklusiven Eröffnungskonditionen profitieren.",
-  },
-  {
-    question: "Wie viele Gäste passen in die Location?",
-    answer:
-      "Der Grand Ballroom fasst bis zu 250 Gäste, die Rheinterrasse bis zu 120 und unsere Private Dining Rooms bis zu 30 Gäste. Für individuelle Arrangements kontaktieren Sie uns gerne.",
-  },
-  {
-    question: "Bieten Sie Full-Service Event-Planung an?",
-    answer:
-      "Ja, von der ersten Idee bis zum letzten Tanz begleiten wir Sie. Unser erfahrenes Team kümmert sich um Dekoration, Catering, Entertainment, Technik und alle Details.",
-  },
-  {
-    question: "Kann man das Steakhouse auch ohne Event besuchen?",
-    answer:
-      "Selbstverständlich! Unser Steakhouse steht allen Gästen offen. Wir empfehlen eine Reservierung, besonders an Wochenenden und für die begehrten Terrassenplätze mit Rheinblick.",
-  },
-  {
-    question: "Gibt es Parkmöglichkeiten?",
-    answer:
-      "Direkt am Millennium Place stehen ausreichend kostenlose Parkplätze zur Verfügung. Für größere Events organisieren wir gerne einen Shuttle-Service von Bahnhöfen oder Hotels.",
-  },
-  {
-    question: "Sind individuelle Menüs möglich?",
-    answer:
-      "Unser Küchenchef erstellt auf Wunsch ein komplett individuelles Menü für Ihr Event. Alle Allergien und Ernährungsvorlieben werden selbstverständlich berücksichtigt.",
-  },
-];
-
-function FAQItem({ faq, index }: { faq: (typeof faqs)[0]; index: number }) {
+function FAQItem({ faq, index }: { faq: (typeof faqs)[number]; index: number }) {
   const [open, setOpen] = useState(false);
 
   return (

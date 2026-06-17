@@ -3,9 +3,12 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useState } from "react";
+import { useConsent } from "./consent/ConsentProvider";
 
 export default function Hero() {
   const [videoReady, setVideoReady] = useState(false);
+  const { hasConsent } = useConsent();
+  const showVideo = hasConsent("externalMedia");
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -20,24 +23,27 @@ export default function Hero() {
         quality={85}
       />
 
-      {/* YouTube background video — autoplay, muted, looping, no controls */}
-      <div className="absolute inset-0 overflow-hidden">
-        <iframe
-          src="https://www.youtube.com/embed/YKa5tnA8G88?autoplay=1&mute=1&loop=1&playlist=YKa5tnA8G88&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1&enablejsapi=0&disablekb=1"
-          allow="autoplay; encrypted-media"
-          onLoad={() => setVideoReady(true)}
-          className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-opacity duration-1000 ${videoReady ? "opacity-100" : "opacity-0"}`}
-          style={{
-            border: "none",
-            pointerEvents: "none",
-            width: "max(100vw, calc(100vh * 16 / 9))",
-            height: "max(100vh, calc(100vw * 9 / 16))",
-            minWidth: "100%",
-            minHeight: "100%",
-          }}
-          title="Millennium Place Hero Video"
-        />
-      </div>
+      {/* YouTube-Hintergrundvideo — erst nach Einwilligung (Externe Medien),
+          cookiefreie youtube-nocookie-Domain */}
+      {showVideo && (
+        <div className="absolute inset-0 overflow-hidden">
+          <iframe
+            src="https://www.youtube-nocookie.com/embed/YKa5tnA8G88?autoplay=1&mute=1&loop=1&playlist=YKa5tnA8G88&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1&enablejsapi=0&disablekb=1"
+            allow="autoplay; encrypted-media"
+            onLoad={() => setVideoReady(true)}
+            className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-opacity duration-1000 ${videoReady ? "opacity-100" : "opacity-0"}`}
+            style={{
+              border: "none",
+              pointerEvents: "none",
+              width: "177.78vh",
+              height: "56.25vw",
+              minWidth: "100vw",
+              minHeight: "100vh",
+            }}
+            title="Millennium Place Hero Video"
+          />
+        </div>
+      )}
 
       {/* Dark overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-midnight-950/65 via-midnight-950/40 to-midnight-950 z-10" />

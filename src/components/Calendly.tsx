@@ -3,6 +3,8 @@
 import { useEffect, useRef } from "react";
 import Script from "next/script";
 import ScrollReveal from "./ScrollReveal";
+import ConsentGate from "./consent/ConsentGate";
+import { useConsent } from "./consent/ConsentProvider";
 
 // Replace this URL with your own Calendly link once your account is set up:
 // e.g. https://calendly.com/millennium-place/besichtigung
@@ -11,10 +13,13 @@ const CALENDLY_URL =
 
 export default function CalendlySection() {
   const widgetRef = useRef<HTMLDivElement>(null);
+  const { hasConsent } = useConsent();
+  const showCalendly = hasConsent("externalMedia");
 
   // Re-init widget if Calendly script was already loaded (e.g. hot reload)
   useEffect(() => {
     if (
+      showCalendly &&
       typeof window !== "undefined" &&
       (window as unknown as { Calendly?: { initInlineWidget: (opts: object) => void } }).Calendly &&
       widgetRef.current
@@ -24,7 +29,7 @@ export default function CalendlySection() {
         parentElement: widgetRef.current,
       });
     }
-  }, []);
+  }, [showCalendly]);
 
   return (
     <section id="termin" className="py-24 md:py-32 px-6 relative overflow-hidden">
@@ -63,24 +68,44 @@ export default function CalendlySection() {
           ))}
         </ScrollReveal>
 
-        {/* Calendly inline widget */}
+        {/* Calendly inline widget — erst nach Einwilligung (Externe Medien) */}
         <ScrollReveal delay={0.15}>
-          <div className="rounded-2xl overflow-hidden glass">
-            <div
-              ref={widgetRef}
-              className="calendly-inline-widget w-full"
-              data-url={CALENDLY_URL}
-              style={{ minWidth: "320px", height: "700px" }}
-            />
-          </div>
+          {showCalendly ? (
+            <div className="rounded-2xl overflow-hidden glass">
+              <div
+                ref={widgetRef}
+                className="calendly-inline-widget w-full"
+                data-url={CALENDLY_URL}
+                style={{ minWidth: "320px", height: "700px" }}
+              />
+            </div>
+          ) : (
+            <ConsentGate
+              category="externalMedia"
+              title="Terminbuchung (Calendly)"
+              description="Zum Schutz Ihrer Daten wird die Online-Terminbuchung erst nach Ihrer Zustimmung geladen. Dabei werden Daten an Calendly übertragen. Alternativ erreichen Sie uns telefonisch oder per E-Mail."
+              className="min-h-[400px]"
+            >
+              <span />
+            </ConsentGate>
+          )}
         </ScrollReveal>
       </div>
 
-      {/* Calendly widget script */}
-      <Script
-        src="https://assets.calendly.com/assets/external/widget.js"
-        strategy="lazyOnload"
-      />
+      {/* Calendly CSS + Script — nur nach Einwilligung */}
+      {showCalendly && (
+        <>
+          {/* eslint-disable-next-line @next/next/no-page-custom-font */}
+          <link
+            href="https://assets.calendly.com/assets/external/widget.css"
+            rel="stylesheet"
+          />
+          <Script
+            src="https://assets.calendly.com/assets/external/widget.js"
+            strategy="lazyOnload"
+          />
+        </>
+      )}
     </section>
   );
 }
